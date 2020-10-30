@@ -3,17 +3,21 @@
 ## 手順
 
 ```
+gcloud config set run/region asia-northeast1
+
 export PROJECT_ID={プロジェクトID}
 export TOPIC_NAME=run-with-pubsub
 export PROJECT_NUMBER={プロジェクトナンバー}
 export INVOKER_ACCOUNT=cloud-run-pubsub-invoker-test
 export RUN_NAME=pubsub-tutorial
-export SERVICE_URL={CloudRunのURL} + '/'
+# 事前に作っておく
 export BUCKET={GCSバケット名}
 
 gcloud pubsub topics create $TOPIC_NAME
 gcloud builds submit --tag gcr.io/$PROJECT_ID/pubsub
-gcloud run deploy $RUN_NAME --image gcr.io/$PROJECT_ID/pubsub --platform managed --region asia-northeast1 --update-env-vars BUCKET=$BUCKET
+gcloud run deploy $RUN_NAME --image gcr.io/$PROJECT_ID/pubsub --platform managed --region asia-northeast1 --update-env-vars BUCKET=$BUCKET --timeout 15m
+
+export SERVICE_URL={CloudRunのURL} + '/'
 
 gcloud projects add-iam-policy-binding $PROJECT_ID \
      --member=serviceAccount:service-$PROJECT_NUMBER@gcp-sa-pubsub.iam.gserviceaccount.com \
@@ -42,3 +46,4 @@ gcloud pubsub topics publish $TOPIC_NAME --message "Runner"
 - [ ] SecretManagerからAPIキー的なものを取得してAPIを使用する
 - [ ] BigQueryへデータを入れ込む
 - [ ] エラー検知
+- [ ] ローカルでの実行環境用意
