@@ -35,3 +35,10 @@ gcloud pubsub topics publish $TOPIC_NAME --message "Runner"
 
 ログから中身を確認できる
 
+## ToDo
+- [x] Pub/Sub経由でCloudRunを動作させる
+- [x] GCSへ適当なファイルをアップロードする
+- [ ] GCSから適当なファイルをダウンロードして処理する
+- [ ] SecretManagerからAPIキー的なものを取得してAPIを使用する
+- [ ] BigQueryへデータを入れ込む
+- [ ] エラー検知
