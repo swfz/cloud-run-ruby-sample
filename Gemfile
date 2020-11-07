@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 
 gem "google-cloud-storage"
+gem "google-cloud-secret_manager"
 gem "sinatra", "~>2.0"
 
 group :test do
