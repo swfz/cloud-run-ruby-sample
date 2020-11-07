@@ -12,8 +12,8 @@ set :port, port
 post "/" do
   p 'requested'
   p ENV["SHORT_SHA"]
-  # params = JSON.parse request.body.read
   p 'params --------'
+  params = JSON.parse request.body.read
   p params
   # p Base64.decode64(params['message']['data'])
 
@@ -25,6 +25,7 @@ end
 post "/storage" do
   p 'called storage'
   p 'params ------'
+  params = JSON.parse request.body.read
   p params
   storage = Google::Cloud::Storage.new
   bucket = storage.bucket ENV["BUCKET"]
@@ -41,6 +42,7 @@ end
 post "/secret_manager" do
   p 'called secret_manager'
   p 'params ------'
+  params = JSON.parse request.body.read
   p params
 
   project_id = ENV["PROJECT_ID"]
@@ -58,8 +60,9 @@ post "/secret_manager" do
 end
 
 post "/fixed_ip" do
-  p 'called secret_manager'
+  p 'called fixed_ip'
   p 'params ------'
+  params = JSON.parse request.body.read
   p params
 
   uri = URI.parse('https://ifconfig.me')
