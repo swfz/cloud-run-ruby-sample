@@ -1,8 +1,9 @@
 require 'sinatra'
 require 'json'
 require 'base64'
+require 'net/http'
 require 'google/cloud/storage'
-require "google/cloud/secret_manager"
+require 'google/cloud/secret_manager'
 
 set :bind, "0.0.0.0"
 port = ENV["PORT"] || "8080"
@@ -52,6 +53,19 @@ post "/secret_manager" do
   p 'secret ------'
   p res.payload
   p res.payload.data
+
+  status 200
+end
+
+post "/fixed_ip" do
+  p 'called secret_manager'
+  p 'params ------'
+  p params
+
+  uri = URI.parse('https://ifconfig.me')
+  res = Net::HTTP.get_response(uri)
+  p res.code
+  p res.body
 
   status 200
 end
