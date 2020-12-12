@@ -13,13 +13,14 @@ post "/" do
   p 'requested'
   p ENV["SHORT_SHA"]
   p 'params --------'
+  p request.body
   params = JSON.parse request.body.read
   p params
   # p Base64.decode64(params['message']['data'])
 
   name = ENV["NAME"] || "World"
+
   "Hello #{name}!"
-  status 200
 end
 
 post "/storage" do
@@ -70,5 +71,5 @@ post "/fixed_ip" do
   p res.code
   p res.body
 
-  status 200
+  uri
 end

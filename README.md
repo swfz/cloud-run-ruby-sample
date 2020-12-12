@@ -48,6 +48,7 @@ echo 'hoge fuga' | gcloud secrets create my-secret --data-file=-
 サービスアカウントを追加して鍵ファイルをダウンロードする
 - 必要権限
     - SecretManagerのアクセス権
+    - Storageへのアクセス権
 
 docker-compose.ymlのvolumes,environmentで鍵の場所を指定
 
@@ -58,18 +59,5 @@ docker-compose.ymlのvolumes,environmentで鍵の場所を指定
       - ./secrets.json:/secrets.json
 ```
 
-
 ログから中身を確認できる
 
-## ToDo
-- [x] Pub/Sub経由でCloudRunを動作させる
-- [x] GCSへ適当なファイルをアップロードする
-- [ ] GCSから適当なファイルをダウンロードして処理する
-- [x] SecretManagerからAPIキー的なものを取得してAPIを使用する
-- [ ] BigQueryへデータを入れ込む
-- [ ] エラー検知
-    - 500とか返せばOKかな
-- [ ] ローカルでの実行環境用意
-    - [x] コンテナだけローカル
-    - [ ] GCSのモック
-    - [ ] SecretManagerのモック
